@@ -1,0 +1,14 @@
+---
+- hosts: all
+
+  tasks:
+  - name: create docker image
+    command: docker build -t buildapp:latest .
+    args: 
+        chdir: /opt/docker
+        
+  - name: create tag to push docker image
+    command: docker tag buildapp:latest schacko9/buildapp:latest
+    
+  - name: push docker image
+    command: docker push schacko9/buildapp:latest 

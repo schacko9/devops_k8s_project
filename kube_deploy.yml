@@ -1,0 +1,13 @@
+---
+- hosts: kubernetes
+  user: root
+  
+  tasks: 
+    - name: Create Deployment on Kubernetes
+      command: kubectl apply -f buildapp_deployment.yml
+   
+    - name: Create Service on Kubernetes
+      command: kubectl apply -f buildapp_service.yml
+
+    - name: Update deployment with new pods if image updated in docker hub
+      command: kubectl rollout restart deployment.apps/schacko9-buildapp 

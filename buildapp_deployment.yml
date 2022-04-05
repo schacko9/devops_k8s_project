@@ -1,0 +1,27 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: schacko9-buildapp
+  labels: 
+     app: buildapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: buildapp
+  template:
+    metadata:
+      labels:
+        app: buildapp
+    spec:
+      containers:
+      - name: buildapp
+        image: schacko9/buildapp
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
